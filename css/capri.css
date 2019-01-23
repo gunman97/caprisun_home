@@ -51,12 +51,12 @@
   .item {
     display: inline-block;
     background: #fff;
-    min-height: 90%;
-    min-width: 100%;
+    min-height: 95%;
+    min-width: 95%;
     margin: 2em 1em;
     @media screen and (max-width: 500px) {
-      min-height: 90%;
-      min-width: 100%;
+      min-height: 95%;
+      min-width: 95%;
     }
   }
 }
