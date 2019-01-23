@@ -28,13 +28,14 @@
     <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <link href="css/morris.css" rel="stylesheet" type="text/css">
+    <link href="css/capri.css" rel="stylesheet" type="text/css">
     <script src="js/jquery.min.js"></script>
     <script src="js/raphael-min.js"></script>
     <script src="js/morris.min.js"></script>
 </head>
 
 <body>
-  <div id="fb-root"></div>
+<div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
@@ -42,7 +43,57 @@
   js.src = 'https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.2&appId=109453656066856&autoLogAppEvents=1';
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-  <div>test</div>
-  <div class="fb-like" data-href="https://facebook.com/AIRPAGE.ORG/" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="false"></div>
+
+
+<div class="container">
+    <div class="col-lg-8">
+        <div class="panel panel-default">
+
+            <div class="panel-body">
+
+            </div>
+
+            <div class="panel-heading">
+                출처: SSG(쓱) / <span id="gather_date"></span> 기준 가격
+            </div>
+
+            <main class="grid-item main panel-body">
+                <div class="items">
+                  <div class="item item1 panel panel-default">
+                      <div class="panel-heading"><h1><font color=#333>오렌지 맛 현재가: <span id="orange_price"></span>원</font></h1></div>
+                      <div id="morris-area-chart-orange"></div>
+                  </div>
+                  <div class="item item2 panel panel-default">
+                      <div class="panel-heading"><h1><font color=#333>오렌지망고 맛 현재가: <span id="orangemango_price"></span>원</font></h1></div>
+                      <div id="morris-area-chart-orange_mango"></div>
+                  </div>
+                  <div class="item item3 panel panel-default">
+                      <div class="panel-heading"><h1><font color=#333>사과 맛 현재가: <span id="apple_price"></span>원</font></h1></div>
+                      <div id="morris-area-chart-apple"></div>
+                  </div>
+                  <div class="item item4 panel panel-default">
+                      <div class="panel-heading"><h1><font color=#333>사파리 현재가: <span id="safari_price"></span>원</font></h1></div>
+                      <div id="morris-area-chart-safari"></div>
+                  </div>
+                  <div class="item item5 panel panel-default">
+                      <div class="panel-heading"><h1><font color=#333>알라스카 현재가: <span id="alaska_price"></span>원</font></h1></div>
+                      <div id="morris-area-chart-alaska"></div>
+                  </div>
+                  <div class="item item6 panel panel-default">
+                      <div class="panel-heading"><h1><font color=#333>Fairy 현재가: <span id="fairy_price"></span>원</font></h1></div>
+                      <div id="morris-area-chart-fairy"></div>
+                  </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+<script src="js/capri.js"></script>
+<script>
+getData();
+</script>
+
+<div class="fb-like" data-href="https://facebook.com/AIRPAGE.ORG/" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="false"></div>
 </body>
 </html>
