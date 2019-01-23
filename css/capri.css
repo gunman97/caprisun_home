@@ -1,3 +1,9 @@
+.alignleft {
+	float: left;
+}
+.alignright {
+	float: right;
+}
 
 @supports(display: grid) {
 
