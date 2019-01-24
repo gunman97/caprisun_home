@@ -3,7 +3,14 @@ function getData() {
     if(r.result == "success") {
       drawChart(r);
     }
-  }, function() {});
+  }, function() {
+    $('#orange_price').text("네트워크 연결이 필요합니다.");
+    $('#orangemango_price').text("네트워크 연결이 필요합니다.");
+    $('#apple_price').text("네트워크 연결이 필요합니다.");
+    $('#safari_price').text("네트워크 연결이 필요합니다.");
+    $('#alaska_price').text("네트워크 연결이 필요합니다.");
+    $('#fairy_price').text("네트워크 연결이 필요합니다.");
+  });
 }
 
 
