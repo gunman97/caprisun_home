@@ -204,7 +204,7 @@ function drawChart(r) {
 }
 
 function ajaxRequest(callback, errorcallback) {
-    $.ajax({url : "http://ec2-13-209-70-35.ap-northeast-2.compute.amazonaws.com/capri.php",
+    $.ajax({url : "https://ptbu18cv95.execute-api.ap-northeast-2.amazonaws.com/prod/caprisun/get",
            dataType : "json",
            crossDomain: true,
            cache : false,
