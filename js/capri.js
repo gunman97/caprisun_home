@@ -116,6 +116,10 @@ function drawChart(r) {
       curLatestIdx = i;
       curLatest = pr.id;
     }
+
+    var dateString = "" + pr.id;
+    var xString = dateString.substring(0,3) + "-" + dateString.substring(4,5) + "-" + dateString.substring(6,7);
+    pr.id = xString; 
     fillData(i, pr);
     i++;
   });
