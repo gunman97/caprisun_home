@@ -118,7 +118,7 @@ function drawChart(r) {
     }
 
     var dateString = "" + pr.id;
-    var xString = dateString.substring(0,3) + "-" + dateString.substring(4,5) + "-" + dateString.substring(6,7);
+    var xString = dateString.substring(0,4) + "-" + dateString.substring(5,7) + "-" + dateString.substring(8,10);
     pr.id = xString; 
     fillData(i, pr);
     i++;
