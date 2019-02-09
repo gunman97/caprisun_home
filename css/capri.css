@@ -6,6 +6,10 @@
   z-index: 10;
 }
 
+.recom {
+	color: #777777;
+}
+
 @supports(display: grid) {
 
   .grid-container {

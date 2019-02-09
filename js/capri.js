@@ -173,31 +173,89 @@ function fillData(i, pr, xString) {
   }
 }
 
+function setPriceTag(tagid, price, oldprice) {
+  var diff = 0;
+  var diffText = "증가";
+
+  diff = price - oldprice;
+  if (diff < 0) {
+    $(tagid + "_ext").text("어제보다 " + Math.abs(diff) + "원 싸네요");
+  }
+  else if (diff > 0){
+    $(tagid + "_ext").text("어제보다 " + Math.abs(diff) + "원 비싸네요");
+  }
+  else if (diff == 0) {
+    $(tagid + "_ext").text("어제와 가격차이 없음");
+  }
+
+  $(tagid).text(price);
+}
+
 function setPrice() {
   var length = 0;
-  $("#orange_price").text(orangeData[length].z);
-  if ($("#orange_price").text == "0")
-    $("#orange_price").text(orangeData[length].y);
+  var price = 0;
+  var oldprice = 0;
 
-  $("#orangemango_price").text(orangeMangoData[length].z);
-  if ($("#orangemango_price").text == "0")
-    $("#orangemango_price").text(orangeMangoData[length].y);
+  price = orangeData[length].z;
+  if (price == 0)
+    price = orangeData[length].y;
 
-  $("#apple_price").text(appleData[length].z);
-  if ($("#apple_price").text == "0")
-    $("#apple_price").text(appleData[length].y);
+  oldprice = orangeData[length + 1].z;
+  if (oldprice == 0)
+    oldprice = orangeData[length + 1].y;
 
-  $("#safari_price").text(safariData[length].z);
-  if ($("#safari_price").text == "0")
-    $("#safari_price").text(safariData[length].y);
+  setPriceTag("#orange_price", price, oldprice);
 
-  $("#fairy_price").text(fairyData[length].z);
-  if ($("#fairy_price").text == "0")
-    $("#fairy_price").text(fairyData[length].y);
+  price = orangeMangoData[length].z;
+  if (price == 0)
+    price = orangeMangoData[length].y;
 
-  $("#alaska_price").text(alaskaData[length].z);
-  if ($("#alaska_price").text == "0")
-    $("#alaska_price").text(alaskaData[length].y);
+  oldprice = orangeMangoData[length + 1].z;
+  if (oldprice == 0)
+    oldprice = orangeMangoData[length + 1].y;
+
+  setPriceTag("#orangemango_price", price, oldprice);
+
+  price = appleData[length].z;
+  if (price == 0)
+    price = appleData[length].y;
+
+  oldprice = appleData[length + 1].z;
+  if (oldprice == 0)
+    oldprice = appleData[length + 1].y;
+
+  setPriceTag("#apple_price", price, oldprice);
+
+  price = safariData[length].z;
+  if (price == 0)
+    price = safariData[length].y;
+
+  oldprice = safariData[length + 1].z;
+  if (oldprice == 0)
+    oldprice = safariData[length + 1].y;
+
+  setPriceTag("#safari_price", price, oldprice);
+
+  price = fairyData[length].z;
+  if (price == 0)
+    price = fairyData[length].y;
+
+  oldprice = fairyData[length + 1].z;
+  if (oldprice == 0)
+    oldprice = fairyData[length + 1].y;
+
+  setPriceTag("#fairy_price", price, oldprice);
+
+  price = alaskaData[length].z;
+  if (price == 0)
+    price = alaskaData[length].y;
+
+  oldprice = alaskaData[length + 1].z;
+  if (oldprice == 0)
+    oldprice = alaskaData[length + 1].y;
+
+  setPriceTag("#alaska_price", price, oldprice);
+
 }
 
 function drawChart(r) {
