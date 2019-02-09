@@ -44,6 +44,8 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/raphael-min.js"></script>
     <script src="js/morris.min.js"></script>
+    <script src="js/highcharts.js"></script>
+    <script src="js/exporting.js"></script>
     <script src="js/app.js" defer></script>
 </head>
 
@@ -122,7 +124,7 @@
         </div>
     </div>
 
-    
+
     <div class="col-lg-6">
       <br>
       <div class="jumbotron">
@@ -130,8 +132,8 @@
         <div class="fb-like" data-href="https://facebook.com/AIRPAGE.ORG/" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="false" data-width="150px"></div>
       </div>
       <div class="jumbotron">
-	<h3>요일별 가격</h3>	
-	<p><img src="./chartimage/data.png" width="400px" border="0"></p>
+      	<h3 id="weekly_price">요일별 가격</h3>
+      	<div id="highchart-area-weekly"></div>
       </div>
     </div>
 
