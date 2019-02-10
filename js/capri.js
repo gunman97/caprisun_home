@@ -10,6 +10,7 @@ function getData() {
     $('#safari_price').text("네트워크 연결이 필요합니다.");
     $('#alaska_price').text("네트워크 연결이 필요합니다.");
     $('#fairy_price').text("네트워크 연결이 필요합니다.");
+    $('#capri_price').text("네트워크 연결이 필요합니다.");
   });
 }
 
