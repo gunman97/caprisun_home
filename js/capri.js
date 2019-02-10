@@ -177,6 +177,7 @@ function setPriceTag(tagid, price, beforeprice, oldprice) {
   var diff = 0;
   var olddiff = 0;
   var curText = ""
+  var curText2 = ""
 
   diff = price - beforeprice;
   olddiff = price - oldprice[0];
@@ -191,13 +192,16 @@ function setPriceTag(tagid, price, beforeprice, oldprice) {
   }
 
   if (olddiff < 0) {
-    curText += " 하지만 " + oldprice[1] + "일 전보다는 "+ Math.abs(olddiff) + "원이 쌉니다";
+    curText2 = " 하지만 " + oldprice[1] + "일 전보다는 "+ Math.abs(olddiff) + "원이 쌉니다";
   }
   else if (olddiff > 0){
-    curText += " 하지만 " + oldprice[1] + "일 전보다는 "+ Math.abs(olddiff) + "원이 비쌉니다";
+    curText2 = " 하지만 " + oldprice[1] + "일 전보다는 "+ Math.abs(olddiff) + "원이 비쌉니다";
   }
 
   $(tagid + "_ext").text(curText);
+  if (curText2 != "")
+    $(tagid + "_ext2").text(curText2);
+    
   $(tagid).text(price);
 }
 
