@@ -181,27 +181,27 @@ function setPriceTag(tagid, price, beforeprice, oldprice) {
   diff = price - beforeprice;
   olddiff = price - oldprice[0];
   if (diff < 0) {
-    curText = "어제보다 " + Math.abs(diff) + "원 싸네요";
+    curText = "어제보다 " + Math.abs(diff) + "원 싸네요.";
   }
   else if (diff > 0){
-    curText = "어제보다 " + Math.abs(diff) + "원 비싸네요";
+    curText = "어제보다 " + Math.abs(diff) + "원 비싸네요.";
   }
   else if (diff == 0) {
-    curText = "어제와 가격차이가 없습니다";
+    curText = "어제와 가격차이가 없습니다.";
   }
 
   if (olddiff < 0) {
-    curText += "<br>하지만 " + oldprice[1] + "일 전보다는"+ Math.abs(olddiff) + "원 쌉니다";
+    curText += " 하지만 " + oldprice[1] + "일 전보다는 "+ Math.abs(olddiff) + "원이 쌉니다";
   }
   else if (olddiff > 0){
-    curText += "<br>하지만 " + oldprice[1] + "일 전보다는"+ Math.abs(olddiff) + "원 비쌉니다";
+    curText += " 하지만 " + oldprice[1] + "일 전보다는 "+ Math.abs(olddiff) + "원이 비쌉니다";
   }
 
   $(tagid + "_ext").text(curText);
   $(tagid).text(price);
 }
 
-function getVeryOldPrice(data) {
+function getVeryOldPrice(price, data) {
   var veryOldprice = 0;
   for(var index = 3; index < 7; index++) {
     if (data[index].z != 0 && data[index].z != price) {
@@ -232,7 +232,7 @@ function setPrice() {
   if (oldprice == 0)
     oldprice = orangeData[length + 1].y;
 
-  veryOldprice = getVeryOldPrice(orangeData);
+  veryOldprice = getVeryOldPrice(price, orangeData);
   setPriceTag("#orange_price", price, oldprice, veryOldprice);
 
   price = orangeMangoData[length].z;
@@ -243,7 +243,7 @@ function setPrice() {
   if (oldprice == 0)
     oldprice = orangeMangoData[length + 1].y;
 
-  veryOldprice = getVeryOldPrice(orangeMangoData);
+  veryOldprice = getVeryOldPrice(price, orangeMangoData);
   setPriceTag("#orangemango_price", price, oldprice, veryOldprice);
 
   price = appleData[length].z;
@@ -254,7 +254,7 @@ function setPrice() {
   if (oldprice == 0)
     oldprice = appleData[length + 1].y;
 
-  veryOldprice = getVeryOldPrice(appleData);
+  veryOldprice = getVeryOldPrice(price, appleData);
   setPriceTag("#apple_price", price, oldprice, veryOldprice);
 
   price = safariData[length].z;
@@ -265,7 +265,7 @@ function setPrice() {
   if (oldprice == 0)
     oldprice = safariData[length + 1].y;
 
-  veryOldprice = getVeryOldPrice(safariData);
+  veryOldprice = getVeryOldPrice(price, safariData);
   setPriceTag("#safari_price", price, oldprice, veryOldprice);
 
   price = fairyData[length].z;
@@ -276,7 +276,7 @@ function setPrice() {
   if (oldprice == 0)
     oldprice = fairyData[length + 1].y;
 
-  veryOldprice = getVeryOldPrice(fairyData);
+  veryOldprice = getVeryOldPrice(price, fairyData);
   setPriceTag("#fairy_price", price, oldprice, veryOldprice);
 
   price = alaskaData[length].z;
@@ -287,7 +287,7 @@ function setPrice() {
   if (oldprice == 0)
     oldprice = alaskaData[length + 1].y;
 
-  veryOldprice = getVeryOldPrice(alaskaData);
+  veryOldprice = getVeryOldPrice(price, alaskaData);
   setPriceTag("#alaska_price", price, oldprice, veryOldprice);
 }
 
