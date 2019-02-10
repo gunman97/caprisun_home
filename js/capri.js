@@ -203,13 +203,13 @@ function setPriceTag(tagid, price, beforeprice, oldprice) {
 
 function getVeryOldPrice(data) {
   var veryOldprice = 0;
-  for(var index = 0; index < 7; index++) {
-    if (data[index].z != 0 && data[index].z != price && index > 3) {
+  for(var index = 3; index < 7; index++) {
+    if (data[index].z != 0 && data[index].z != price) {
       veryOldprice = data[index].z;
       break;
     }
 
-    if (veryOldprice != 0 && data[index].y != 0 && data[index].y != price && index > 3) {
+    if (veryOldprice != 0 && data[index].y != 0 && data[index].y != price) {
       veryOldprice = data[index].y;
       break;
     }
