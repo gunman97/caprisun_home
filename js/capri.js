@@ -173,28 +173,56 @@ function fillData(i, pr, xString) {
   }
 }
 
-function setPriceTag(tagid, price, oldprice) {
+function setPriceTag(tagid, price, beforeprice, oldprice) {
   var diff = 0;
-  var diffText = "증가";
+  var olddiff = 0;
+  var curText = ""
 
-  diff = price - oldprice;
+  diff = price - beforeprice;
+  olddiff = price - oldprice[0];
   if (diff < 0) {
-    $(tagid + "_ext").text("어제보다 " + Math.abs(diff) + "원 싸네요");
+    curText = "어제보다 " + Math.abs(diff) + "원 싸네요";
   }
   else if (diff > 0){
-    $(tagid + "_ext").text("어제보다 " + Math.abs(diff) + "원 비싸네요");
+    curText = "어제보다 " + Math.abs(diff) + "원 비싸네요";
   }
   else if (diff == 0) {
-    $(tagid + "_ext").text("어제와 가격차이 없음");
+    curText = "어제와 가격차이가 없습니다";
   }
 
+  if (olddiff < 0) {
+    curText += "<br>하지만 " + oldprice[1] + "일 전보다는"+ Math.abs(olddiff) + "원 쌉니다";
+  }
+  else if (olddiff > 0){
+    curText += "<br>하지만 " + oldprice[1] + "일 전보다는"+ Math.abs(olddiff) + "원 비쌉니다";
+  }
+
+  $(tagid + "_ext").text(curText);
   $(tagid).text(price);
+}
+
+function getVeryOldPrice(data) {
+  var veryOldprice = 0;
+  for(var index = 0; index < 7; index++) {
+    if (data[index].z != 0 && data[index].z != price && index > 3) {
+      veryOldprice = data[index].z;
+      break;
+    }
+
+    if (veryOldprice != 0 && data[index].y != 0 && data[index].y != price && index > 3) {
+      veryOldprice = data[index].y;
+      break;
+    }
+  }
+
+  return [veryOldprice, index];
 }
 
 function setPrice() {
   var length = 0;
   var price = 0;
   var oldprice = 0;
+  var veryOldprice;
 
   price = orangeData[length].z;
   if (price == 0)
@@ -204,7 +232,8 @@ function setPrice() {
   if (oldprice == 0)
     oldprice = orangeData[length + 1].y;
 
-  setPriceTag("#orange_price", price, oldprice);
+  veryOldprice = getVeryOldPrice(orangeData);
+  setPriceTag("#orange_price", price, oldprice, veryOldprice);
 
   price = orangeMangoData[length].z;
   if (price == 0)
@@ -214,7 +243,8 @@ function setPrice() {
   if (oldprice == 0)
     oldprice = orangeMangoData[length + 1].y;
 
-  setPriceTag("#orangemango_price", price, oldprice);
+  veryOldprice = getVeryOldPrice(orangeMangoData);
+  setPriceTag("#orangemango_price", price, oldprice, veryOldprice);
 
   price = appleData[length].z;
   if (price == 0)
@@ -224,7 +254,8 @@ function setPrice() {
   if (oldprice == 0)
     oldprice = appleData[length + 1].y;
 
-  setPriceTag("#apple_price", price, oldprice);
+  veryOldprice = getVeryOldPrice(appleData);
+  setPriceTag("#apple_price", price, oldprice, veryOldprice);
 
   price = safariData[length].z;
   if (price == 0)
@@ -234,7 +265,8 @@ function setPrice() {
   if (oldprice == 0)
     oldprice = safariData[length + 1].y;
 
-  setPriceTag("#safari_price", price, oldprice);
+  veryOldprice = getVeryOldPrice(safariData);
+  setPriceTag("#safari_price", price, oldprice, veryOldprice);
 
   price = fairyData[length].z;
   if (price == 0)
@@ -244,7 +276,8 @@ function setPrice() {
   if (oldprice == 0)
     oldprice = fairyData[length + 1].y;
 
-  setPriceTag("#fairy_price", price, oldprice);
+  veryOldprice = getVeryOldPrice(fairyData);
+  setPriceTag("#fairy_price", price, oldprice, veryOldprice);
 
   price = alaskaData[length].z;
   if (price == 0)
@@ -254,8 +287,8 @@ function setPrice() {
   if (oldprice == 0)
     oldprice = alaskaData[length + 1].y;
 
-  setPriceTag("#alaska_price", price, oldprice);
-
+  veryOldprice = getVeryOldPrice(alaskaData);
+  setPriceTag("#alaska_price", price, oldprice, veryOldprice);
 }
 
 function drawChart(r) {
