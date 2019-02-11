@@ -112,7 +112,7 @@ function drawHighChart(r) {
   var idx = 0;
   var cData = Array();
   meanDataSet.forEach(function (pr) {
-      var ydata = pr[0] / pr[1];
+      var ydata = Math.round(pr[0] / pr[1]);
       cData.push({x:idx,y:ydata})
       idx++;
   });
@@ -141,13 +141,12 @@ function drawHighChart(r) {
         tooltips: {
         callbacks: {
                   label: function(tooltipItem, data) {
-
-
                       var d = data.datasets[tooltipItem.datasetIndex].data[0];
                       var t = d.r / 4;
 
                       if (data.datasets[tooltipItem.datasetIndex].type == 'line')
-                        return dayAr[d.x] + "요일의 평균가격: " + tooltipItem.yLabel;
+                        return dayAr[tooltipItem.xLabel] + "요일의 평균가격: " + tooltipItem.yLabel + "원";
+
                       return dayAr[d.x] + "요일에 " + tooltipItem.yLabel + "원이었던 적이 " + t + "번 존재";
                   }
               }
