@@ -84,6 +84,12 @@ function drawHighChart(r) {
 
   var dataSet = Array();
   dataForHigh.forEach(function (pr) {
+    var color = "#99aaff";
+
+    if (pr[1] > 4000) {
+      color = "#ffaa99";
+    }
+
     var d = {
       label: pr[0],
       data: [
@@ -93,7 +99,7 @@ function drawHighChart(r) {
           r: pr[2] * 4
         }
       ],
-      backgroundColor:"#99aaff",
+      backgroundColor:color,
       hoverBackgroundColor: "#ff6384"
     };
 
