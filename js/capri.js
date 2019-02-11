@@ -129,8 +129,8 @@ function drawHighChart(r) {
         scales: {
             xAxes: [{
               ticks: {
-                callback: function(value, index, values) {
-                  return dayAr[index];
+                userCallback: function(label, index, labels) {
+                  return dayAr[label];
                 }
               }
             }]
