@@ -201,13 +201,14 @@ function setPriceTag(tagid, price, beforeprice, oldprice) {
   $(tagid + "_ext").text(curText);
   if (curText2 != "")
     $(tagid + "_ext2").text(curText2);
-    
+
   $(tagid).text(price);
 }
 
 function getVeryOldPrice(price, data) {
   var veryOldprice = 0;
-  for(var index = 3; index < 7; index++) {
+  var index = 3;
+  for(;index < 7; index++) {
     if (data[index].z != 0 && data[index].z != price) {
       veryOldprice = data[index].z;
       break;
