@@ -122,8 +122,9 @@ function drawHighChart(r) {
         tooltips: {
         callbacks: {
                   label: function(tooltipItem, data) {
-                      var t = data.datasets[tooltipItem.datasetIndex].data[0].r / 4;
-                      return tooltipItem.yLabel + "원이었던 적이 " + t + "번 존재";
+                      var d = data.datasets[tooltipItem.datasetIndex].data[0];
+                      var t = d.r / 4;
+                      return dayAr[d.x] + "요일에 " + tooltipItem.yLabel + "원이었던 적이 " + t + "번 존재";
                   }
               }
           },
