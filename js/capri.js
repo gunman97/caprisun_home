@@ -83,6 +83,7 @@ function drawHighChart(r) {
   });
 
   var dataSet = Array();
+  var meanDataSet = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]];
   dataForHigh.forEach(function (pr) {
     var color = "#99aaff";
 
@@ -103,8 +104,26 @@ function drawHighChart(r) {
       hoverBackgroundColor: "#ff6384"
     };
 
+    meanDataSet[pr[0]][0] += pr[1];
+    meanDataSet[pr[0]][1] += 1;
     dataSet.push(d);
   });
+
+  var idx = 0;
+  var cData = Array();
+  meanDataSet.forEach(function (pr) {
+      var ydata = pr[0] / pr[1];
+      cData.push({x:idx,y:ydata})
+      idx++;
+  });
+
+  var dd = {
+          label: 'Line',
+          data: cData,
+          type: 'line'
+        };
+
+  dataSet.push(dd);
 
   // data.sort(function(a, b){return b.id - a.id});
   var dayAr = ["일", "월", "화", "수", "목", "금", "토"];
@@ -122,8 +141,13 @@ function drawHighChart(r) {
         tooltips: {
         callbacks: {
                   label: function(tooltipItem, data) {
+
+
                       var d = data.datasets[tooltipItem.datasetIndex].data[0];
                       var t = d.r / 4;
+
+                      if (data.datasets[tooltipItem.datasetIndex].type == 'line')
+                        return dayAr[d.x] + "요일의 평균가격: " + tooltipItem.yLabel;
                       return dayAr[d.x] + "요일에 " + tooltipItem.yLabel + "원이었던 적이 " + t + "번 존재";
                   }
               }
