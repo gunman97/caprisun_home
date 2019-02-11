@@ -11,11 +11,8 @@ function getData() {
     $('#safari_price').text("네트워크 연결이 필요합니다.");
     $('#alaska_price').text("네트워크 연결이 필요합니다.");
     $('#fairy_price').text("네트워크 연결이 필요합니다.");
-<<<<<<< HEAD
     $('#capri_price').text("네트워크 연결이 필요합니다.");
-=======
     $('#weekly_price').text("네트워크 연결이 필요합니다.");
->>>>>>> a13b4b19360c0c5027f16223dc667a35fbc1514d
   });
 }
 
