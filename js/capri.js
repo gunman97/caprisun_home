@@ -122,7 +122,8 @@ function drawHighChart(r) {
         tooltips: {
         callbacks: {
                   label: function(tooltipItem, data) {
-                      return tooltipItem.yLabel + "원";
+                      var t = data.datasets[tooltipItem.datasetIndex].data[0].r / 4;
+                      return tooltipItem.yLabel + "원이었던 적이 " + t + "번 존재";
                   }
               }
           },
