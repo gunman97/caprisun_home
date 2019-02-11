@@ -37,6 +37,7 @@ function fillDataForHigh(day, pr) {
       if (d[0] == day[1] && d[1] == price && (price > 0)) {
         d[2] += 1;
         found = true;
+        break;
       }
     }
 
@@ -57,6 +58,7 @@ function fillDataForHigh(day, pr) {
       if (d[0] == day[1] && d[1] == price && (price > 0)) {
         d[2] += 1;
         found = true;
+        break;
       }
     }
 
