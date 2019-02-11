@@ -192,10 +192,10 @@ function setPriceTag(tagid, price, beforeprice, oldprice) {
   }
 
   if (olddiff < 0) {
-    curText2 = " 하지만 " + oldprice[1] + "일 전보다는 "+ Math.abs(olddiff) + "원이 쌉니다";
+    curText2 = " 하지만 " + oldprice[1] + "일전 " + oldprice[2] + "보다는 "+ Math.abs(olddiff) + "원이 쌉니다";
   }
   else if (olddiff > 0){
-    curText2 = " 하지만 " + oldprice[1] + "일 전보다는 "+ Math.abs(olddiff) + "원이 비쌉니다";
+    curText2 = " 하지만 " + oldprice[1] + "일전 " + oldprice[2] + "보다는 "+ Math.abs(olddiff) + "원이 비쌉니다";
   }
 
   $(tagid + "_ext").text(curText);
@@ -208,6 +208,7 @@ function setPriceTag(tagid, price, beforeprice, oldprice) {
 function getVeryOldPrice(price, data) {
   var veryOldprice = 0;
   var index = 3;
+  var whenCr = "오후";
   for(;index < 7; index++) {
     if (data[index].z != 0 && data[index].z != price) {
       veryOldprice = data[index].z;
@@ -216,11 +217,12 @@ function getVeryOldPrice(price, data) {
 
     if (veryOldprice != 0 && data[index].y != 0 && data[index].y != price) {
       veryOldprice = data[index].y;
+      whenCr = "오전";
       break;
     }
   }
 
-  return [veryOldprice, index];
+  return [veryOldprice, index, whenCr];
 }
 
 function setPrice() {
