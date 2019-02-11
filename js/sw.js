@@ -4,6 +4,8 @@ var appShellFiles = [
   '/js/jquery.min.js',
   '/js/morris.min.js',
   '/js/raphael-min.js',
+  '/js/exporting.js',
+  '/js/highcharts.js',
   '/css/bootstrap.min.css',
   '/css/capri.css',
   '/css/font-awesome.min.css',

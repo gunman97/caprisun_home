@@ -21,7 +21,7 @@
     <meta property="og:url" content="https://caprisun.airpage.org" />
     <meta property="og:site_name" content="CAPRISUN SSG(싸게사기))" />
     <meta property="og:title" content="CAPRISUN SSG(싸게사기)" />
-    <meta property="og:description" content="카프리썬 싸게 사기 사이트" />
+    <meta property="og:description" content="카프리썬을 싸게 구입할 수 있는 관련 데이터 분석 정보를 제공합니다" />
     <meta property="og:image" content="/imgs/airpage_ssg.png" />
     <meta property="og:image:width" content="1024" />
     <meta property="og:image:height" content="683" />
@@ -44,6 +44,8 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/raphael-min.js"></script>
     <script src="js/morris.min.js"></script>
+    <script src="js/highcharts.js"></script>
+    <script src="js/exporting.js"></script>
     <script src="js/app.js" defer></script>
 </head>
 
@@ -63,7 +65,7 @@
         <br>
         <div class="panel panel-default">
             <div class="panel-heading">
-            SSG(쓱)/<span id="gather_date"></span> 기준 가격
+            SSG(쓱)/<span id="gather_date"></span> 기준으로 카프리썬의 가격
             </div>
 
             <main class="grid-item main panel-body">
@@ -72,6 +74,8 @@
                       <div class="panel-heading">
                         <h3><font color=#333>오렌지 맛</font></h3>
                           <a href="http://www.ssg.com/item/itemView.ssg?itemId=0000006610778" target=_new><h2>현재가 <span id="orange_price"></span>원</h2></a>
+                          <h5 class="recom" id="orange_price_ext"></h5>
+                          <h5 class="recom" id="orange_price_ext2"></h5>
                       </div>
                       <div id="morris-area-chart-orange"></div>
                       <div class="alignright"><img src="./imgs/chev.png" width="30px"><br><br></div>
@@ -80,6 +84,8 @@
                       <div class="panel-heading">
                         <h3><font color=#333>오렌지망고 맛</font></h3>
                           <a href="http://www.ssg.com/item/itemView.ssg?itemId=0000006610896" target=_new><h2>현재가 <span id="orangemango_price"></span>원</h2></a>
+                          <h5 class="recom" id="orangemango_price_ext"></h5>
+                          <h5 class="recom" id="orangemango_price_ext2"></h5>
                       </div>
                       <div id="morris-area-chart-orange_mango"></div>
                       <div class="alignright"><img src="./imgs/chev.png" width="30px"><br><br></div>
@@ -88,6 +94,8 @@
                       <div class="panel-heading">
                         <h3><font color=#333>사과 맛</font></h3>
                           <a href="http://www.ssg.com/item/itemView.ssg?itemId=0000007703166" target=_new><h2>현재가 <span id="apple_price"></span>원</h2></a>
+                          <h5 class="recom" id="apple_price_ext"></h5>
+                          <h5 class="recom" id="apple_price_ext2"></h5>
                       </div>
                       <div id="morris-area-chart-apple"></div>
                       <div class="alignright"><img src="./imgs/chev.png" width="30px"><br><br></div>
@@ -97,6 +105,8 @@
                       <div class="panel-heading">
                         <h3><font color=#333>사파리 맛</font></h3>
                           <a href="http://www.ssg.com/item/itemView.ssg?itemId=0000007695749" target=_new><h2>현재가 <span id="safari_price"></span>원</h2></a>
+                          <h5 class="recom" id="safari_price_ext"></h5>
+                          <h5 class="recom" id="safari_price_ext2"></h5>
                       </div>
                       <div id="morris-area-chart-safari"></div>
                       <div class="alignright"><img src="./imgs/chev.png" width="30px"><br><br></div>
@@ -105,6 +115,8 @@
                       <div class="panel-heading">
                         <h3><font color=#333>알라스카</font></h3>
                           <a href="http://www.ssg.com/item/itemView.ssg?itemId=0000008117934" target=_new><h2>현재가 <span id="alaska_price"></span>원</h2></a>
+                          <h5 class="recom" id="alaska_price_ext"></h5>
+                          <h5 class="recom" id="alaska_price_ext2"></h5>
                       </div>
                       <div id="morris-area-chart-alaska"></div>
                       <div class="alignright"><img src="./imgs/chev.png" width="30px"><br><br></div>
@@ -113,6 +125,8 @@
                       <div class="panel-heading">
                         <h3><font color=#333>Fairy</font></h3>
                           <a href="http://www.ssg.com/item/itemView.ssg?itemId=1000017758169" target=_new><h2>현재가 <span id="fairy_price"></span>원</h2></a>
+                          <h5 class="recom" id="fairy_price_ext"></h5>
+                          <h5 class="recom" id="fairy_price_ext2"></h5>
                       </div>
                       <div id="morris-area-chart-fairy"></div>
                       <div class="alignright"><br><br><br></div>
@@ -120,21 +134,34 @@
                 </div>
             </main>
         </div>
+
+      <div class="jumbotron">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- 카프리썬페이지 -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-5184861938684175"
+             data-ad-slot="9839644428"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+
     </div>
 
-    
     <div class="col-lg-6">
       <br>
+      <div class="jumbotron">
+      	<h3 id="weekly_price">요일별 가격</h3>
+      	<div id="highchart-area-weekly"></div>
+      </div>
       <div class="jumbotron">
         <a href="#">이곳은 카프리썬 마니아 부부가 카프리썬을 좀 더 싸게 구입하기 위하여 고군분투하며 수집한 카프리썬의 가격정보를 기반으로 카프리썬의 가격추이를 표시하는 곳입니다. 이 자료가 카프리썬의 구입시기를 결정하는데 도움이 되었으면 좋겠습니다.<br><br>SSG.COM(쓱) 쇼핑몰의 "쓱배송" 기준가격입니다.</a><br><br>
         <div class="fb-like" data-href="https://facebook.com/AIRPAGE.ORG/" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="false" data-width="150px"></div>
       </div>
-      <div class="jumbotron">
-	<h3>요일별 가격</h3>	
-	<p><img src="./chartimage/data.png" width="400px" border="0"></p>
-      </div>
     </div>
-
 
     <div class="col-lg-12">
       © 2019 <a href="http://airpage.org">AiRPAGE.ORG</a>

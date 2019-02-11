@@ -2,6 +2,7 @@ function getData() {
   ajaxRequest(function (r) {
     if(r.result == "success") {
       drawChart(r);
+      drawHighChart(r);
     }
   }, function() {
     $('#orange_price').text("네트워크 연결이 필요합니다.");
@@ -10,10 +11,114 @@ function getData() {
     $('#safari_price').text("네트워크 연결이 필요합니다.");
     $('#alaska_price').text("네트워크 연결이 필요합니다.");
     $('#fairy_price').text("네트워크 연결이 필요합니다.");
+<<<<<<< HEAD
     $('#capri_price').text("네트워크 연결이 필요합니다.");
+=======
+    $('#weekly_price').text("네트워크 연결이 필요합니다.");
+>>>>>>> a13b4b19360c0c5027f16223dc667a35fbc1514d
   });
 }
 
+
+var noonDataForHigh = Array();
+var afternoonForHigh = Array();
+
+function getDayOfWeek(date) {
+  var dayOfWeek = new Date(date).getDay();
+  return isNaN(dayOfWeek) ? null : ['일', '월', '화', '수', '목', '금', '토'][dayOfWeek];
+}
+
+function fillDataForHigh(i, day, pr) {
+  noonDataForHigh[i] = [day, 0];
+  afternoonForHigh[i] = [day, 0];
+
+  if ("orange" in pr.data[0]) {
+    noonDataForHigh[i][1] = pr.data[0].orange;
+  }
+  if ("orange" in pr.data[1]) {
+    afternoonForHigh[i][1] = pr.data[1].orange;
+  }
+}
+
+var iHighIndex = 0;
+
+function drawHighChart(r) {
+  var data = r.data;
+  if (data == null) return;
+
+  data.forEach(function (pr) {
+    var dateString = "" + pr.id;
+    var xString = dateString.substring(0,4) + "-" + dateString.substring(4,6) + "-" + dateString.substring(6,8);
+    var day = getDayOfWeek(xString);
+    fillDataForHigh(iHighIndex, day, pr);
+    iHighIndex++;
+  });
+
+  // data.sort(function(a, b){return b.id - a.id});
+
+  Highcharts.chart('highchart-area-weekly', {
+            chart: {
+                type: 'scatter',
+                zoomType: 'xy'
+            },
+            title: {
+                text: '-'
+            },
+            xAxis: {
+                type: 'category',
+                categories: ["일", "월", "화", "수", "목", "금", "토"]
+            },
+            yAxis: {
+                title: {
+                    text: '가격'
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'left',
+                verticalAlign: 'top',
+                x: 1,
+                y: 120,
+                floating: true,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+                borderWidth: 1
+            },
+            plotOptions: {
+                scatter: {
+                    marker: {
+                        radius: 5,
+                        states: {
+                            hover: {
+                                enabled: true,
+                                lineColor: 'rgb(100,100,100)'
+                            }
+                        }
+                    },
+                    states: {
+                        hover: {
+                            marker: {
+                                enabled: false
+                            }
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<b>{series.name}</b><br>',
+                        pointFormat: '{point.y}원'
+                    }
+                }
+            },
+            series: [{
+                name: '오전',
+                color: 'rgba(223, 83, 83, .5)',
+                data: noonDataForHigh
+
+            }, {
+                name: '오후',
+                color: 'rgba(119, 152, 191, .5)',
+                data: afternoonForHigh
+    }]
+});
+}
 
 var orangeData;
 var orangeMangoData;
@@ -22,8 +127,8 @@ var safariData;
 var fairyData;
 var alaskaData;
 
-function fillData(i, pr) {
-  orangeData[i] = {'x': pr.id, 'y': 0, 'z': 0};
+function fillData(i, pr, xString) {
+  orangeData[i] = {'id': pr.id, 'y': 0, 'z': 0, 'x' : xString};
   if ("orange" in pr.data[0]) {
     orangeData[i].y = pr.data[0].orange;
   }
@@ -31,7 +136,7 @@ function fillData(i, pr) {
     orangeData[i].z = pr.data[1].orange;
   }
 
-  orangeMangoData[i] = {'x': pr.id, 'y': 0, 'z': 0};
+  orangeMangoData[i] = {'id': pr.id, 'y': 0, 'z': 0, 'x' : xString};
   if ("orange_mango" in pr.data[0]) {
     orangeMangoData[i].y = pr.data[0].orange_mango;
   }
@@ -39,7 +144,7 @@ function fillData(i, pr) {
     orangeMangoData[i].z = pr.data[1].orange_mango;
   }
 
-  appleData[i] = {'x': pr.id, 'y': 0, 'z': 0};
+  appleData[i] = {'id': pr.id, 'y': 0, 'z': 0, 'x' : xString};
   if ("apple" in pr.data[0]) {
     appleData[i].y = pr.data[0].apple;
   }
@@ -47,7 +152,7 @@ function fillData(i, pr) {
     appleData[i].z = pr.data[1].apple;
   }
 
-  safariData[i] = {'x': pr.id, 'y': 0, 'z': 0};
+  safariData[i] = {'id': pr.id, 'y': 0, 'z': 0, 'x' : xString};
   if ("safari" in pr.data[0]) {
     safariData[i].y = pr.data[0].safari;
   }
@@ -55,7 +160,7 @@ function fillData(i, pr) {
     safariData[i].z = pr.data[1].safari;
   }
 
-  fairyData[i] = {'x': pr.id, 'y': 0, 'z': 0};
+  fairyData[i] = {'id': pr.id, 'y': 0, 'z': 0, 'x' : xString};
   if ("fairy" in pr.data[0]) {
     fairyData[i].y = pr.data[0].fairy;
   }
@@ -63,7 +168,7 @@ function fillData(i, pr) {
     fairyData[i].z = pr.data[1].fairy;
   }
 
-  alaskaData[i] = {'x': pr.id, 'y': 0, 'z': 0};
+  alaskaData[i] = {'id': pr.id, 'y': 0, 'z': 0, 'x' : xString};
   if ("alaska" in pr.data[0]) {
     alaskaData[i].y = pr.data[0].alaska;
   }
@@ -72,31 +177,129 @@ function fillData(i, pr) {
   }
 }
 
+function setPriceTag(tagid, price, beforeprice, oldprice) {
+  var diff = 0;
+  var olddiff = 0;
+  var curText = ""
+  var curText2 = ""
+
+  diff = price - beforeprice;
+  olddiff = price - oldprice[0];
+  if (diff < 0) {
+    curText = "어제보다 " + Math.abs(diff) + "원 싸네요.";
+  }
+  else if (diff > 0){
+    curText = "어제보다 " + Math.abs(diff) + "원 비싸네요.";
+  }
+  else if (diff == 0) {
+    curText = "어제와 가격차이가 없습니다.";
+  }
+
+  if (olddiff < 0) {
+    curText2 = " 하지만 " + oldprice[1] + "일전 " + oldprice[2] + "보다는 "+ Math.abs(olddiff) + "원이 쌉니다";
+  }
+  else if (olddiff > 0){
+    curText2 = " 하지만 " + oldprice[1] + "일전 " + oldprice[2] + "보다는 "+ Math.abs(olddiff) + "원이 비쌉니다";
+  }
+
+  $(tagid + "_ext").text(curText);
+  if (curText2 != "")
+    $(tagid + "_ext2").text(curText2);
+
+  $(tagid).text(price);
+}
+
+function getVeryOldPrice(price, data) {
+  var veryOldprice = 0;
+  var index = 3;
+  var whenCr = "오후";
+  for(;index < 7; index++) {
+    if (data[index].z != 0 && data[index].z != price) {
+      veryOldprice = data[index].z;
+      break;
+    }
+
+    if (veryOldprice != 0 && data[index].y != 0 && data[index].y != price) {
+      veryOldprice = data[index].y;
+      whenCr = "오전";
+      break;
+    }
+  }
+
+  return [veryOldprice, index, whenCr];
+}
+
 function setPrice() {
-  var length = orangeData.length - 1;
-  $("#orange_price").text(orangeData[length].y);
-  if ($("#orange_price").text == "0")
-    $("#orange_price").text(orangeData[length].z);
+  var length = 0;
+  var price = 0;
+  var oldprice = 0;
+  var veryOldprice;
 
-  $("#orangemango_price").text(orangeMangoData[length].y);
-  if ($("#orangemango_price").text == "0")
-    $("#orangemango_price").text(orangeMangoData[length].z);
+  price = orangeData[length].z;
+  if (price == 0)
+    price = orangeData[length].y;
 
-  $("#apple_price").text(appleData[length].y);
-  if ($("#apple_price").text == "0")
-    $("#apple_price").text(appleData[length].z);
+  oldprice = orangeData[length + 1].z;
+  if (oldprice == 0)
+    oldprice = orangeData[length + 1].y;
 
-  $("#safari_price").text(safariData[length].y);
-  if ($("#safari_price").text == "0")
-    $("#safari_price").text(safariData[length].z);
+  veryOldprice = getVeryOldPrice(price, orangeData);
+  setPriceTag("#orange_price", price, oldprice, veryOldprice);
 
-  $("#fairy_price").text(fairyData[length].y);
-  if ($("#fairy_price").text == "0")
-    $("#fairy_price").text(fairyData[length].z);
+  price = orangeMangoData[length].z;
+  if (price == 0)
+    price = orangeMangoData[length].y;
 
-  $("#alaska_price").text(alaskaData[length].y);
-  if ($("#alaska_price").text == "0")
-    $("#alaska_price").text(alaskaData[length].z);
+  oldprice = orangeMangoData[length + 1].z;
+  if (oldprice == 0)
+    oldprice = orangeMangoData[length + 1].y;
+
+  veryOldprice = getVeryOldPrice(price, orangeMangoData);
+  setPriceTag("#orangemango_price", price, oldprice, veryOldprice);
+
+  price = appleData[length].z;
+  if (price == 0)
+    price = appleData[length].y;
+
+  oldprice = appleData[length + 1].z;
+  if (oldprice == 0)
+    oldprice = appleData[length + 1].y;
+
+  veryOldprice = getVeryOldPrice(price, appleData);
+  setPriceTag("#apple_price", price, oldprice, veryOldprice);
+
+  price = safariData[length].z;
+  if (price == 0)
+    price = safariData[length].y;
+
+  oldprice = safariData[length + 1].z;
+  if (oldprice == 0)
+    oldprice = safariData[length + 1].y;
+
+  veryOldprice = getVeryOldPrice(price, safariData);
+  setPriceTag("#safari_price", price, oldprice, veryOldprice);
+
+  price = fairyData[length].z;
+  if (price == 0)
+    price = fairyData[length].y;
+
+  oldprice = fairyData[length + 1].z;
+  if (oldprice == 0)
+    oldprice = fairyData[length + 1].y;
+
+  veryOldprice = getVeryOldPrice(price, fairyData);
+  setPriceTag("#fairy_price", price, oldprice, veryOldprice);
+
+  price = alaskaData[length].z;
+  if (price == 0)
+    price = alaskaData[length].y;
+
+  oldprice = alaskaData[length + 1].z;
+  if (oldprice == 0)
+    oldprice = alaskaData[length + 1].y;
+
+  veryOldprice = getVeryOldPrice(price, alaskaData);
+  setPriceTag("#alaska_price", price, oldprice, veryOldprice);
 }
 
 function drawChart(r) {
@@ -109,29 +312,24 @@ function drawChart(r) {
 
   var data = r.data;
   if (data == null) return;
+
+  data.sort(function(a, b){return b.id - a.id});
+  data = data.slice(0, 7);
+
   var i = 0;
-  var curLatest = 2000;
+  var curLatest = 0;
   var curLatestIdx = -1;
   data.forEach(function (pr) {
-    if (pr.id > curLatest) {
+    if (pr.id >= curLatest) {
       curLatestIdx = i;
       curLatest = pr.id;
     }
 
     var dateString = "" + pr.id;
     var xString = dateString.substring(0,4) + "-" + dateString.substring(4,6) + "-" + dateString.substring(6,8);
-    pr.id = xString; 
-    fillData(i, pr);
+    fillData(i, pr, xString);
     i++;
   });
-
-  if ('dtime' in data[curLatestIdx].data[0]) {
-    $("#gather_date").text(data[curLatestIdx].data[0].dtime);
-  }
-
-  if ('dtime' in data[curLatestIdx].data[1]) {
-    $("#gather_date").text(data[curLatestIdx].data[1].dtime);
-  }
 
   var hoverFunction = function (index, options, content, row) {
         return "날짜:" + row.x + "<br>" + "오전:" + row.y + "원 / 오후:" + row.z + "원";
@@ -144,6 +342,13 @@ function drawChart(r) {
   fairyData.sort(function(a, b){return b.id - a.id});
   alaskaData.sort(function(a, b){return b.id - a.id});
 
+  if ('dtime' in data[curLatestIdx].data[0]) {
+    $("#gather_date").text(data[curLatestIdx].data[0].dtime);
+  }
+
+  if ('dtime' in data[curLatestIdx].data[1]) {
+    $("#gather_date").text(data[curLatestIdx].data[1].dtime);
+  }
 
   setPrice();
 
