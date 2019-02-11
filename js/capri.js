@@ -16,23 +16,53 @@ function getData() {
 }
 
 
-var noonDataForHigh = Array();
-var afternoonForHigh = Array();
+var dataForHigh = Array();
 
 function getDayOfWeek(date) {
   var dayOfWeek = new Date(date).getDay();
-  return isNaN(dayOfWeek) ? null : ['일', '월', '화', '수', '목', '금', '토'][dayOfWeek];
+  var retDay = isNaN(dayOfWeek) ? null : ['일', '월', '화', '수', '목', '금', '토'][dayOfWeek];
+  return [retDay, dayOfWeek];
 }
 
-function fillDataForHigh(i, day, pr) {
-  noonDataForHigh[i] = [day, 0];
-  afternoonForHigh[i] = [day, 0];
-
+function fillDataForHigh(day, pr) {
+  var price = 0;
+  var found = false;
   if ("orange" in pr.data[0]) {
-    noonDataForHigh[i][1] = pr.data[0].orange;
+    price = pr.data[0].orange;
+
+    for(var i=dataForHigh.length - 1;i >= 0;i--) {
+      var d = dataForHigh[i];
+
+      if (d[0] == day[1] && d[1] == price && (price > 0)) {
+        d[2] += 1;
+        found = true;
+      }
+    }
+
+    if (found == false) {
+      var d = [day[1], price, 0];
+      dataForHigh.push(d);
+    }
   }
+
   if ("orange" in pr.data[1]) {
-    afternoonForHigh[i][1] = pr.data[1].orange;
+    price = pr.data[1].orange;
+
+    found = false;
+
+    for(var i=dataForHigh.length - 1;i >= 0;i--) {
+      var d = dataForHigh[i];
+
+      if (d[0] == day[1] && d[1] == price && (price > 0)) {
+        d[2] += 1;
+        found = true;
+      }
+    }
+
+    if (found == false) {
+      var d = [day[1], price, 0];
+      dataForHigh.push(d);
+    }
   }
 }
 
@@ -46,74 +76,58 @@ function drawHighChart(r) {
     var dateString = "" + pr.id;
     var xString = dateString.substring(0,4) + "-" + dateString.substring(4,6) + "-" + dateString.substring(6,8);
     var day = getDayOfWeek(xString);
-    fillDataForHigh(iHighIndex, day, pr);
-    iHighIndex++;
+    fillDataForHigh(day, pr);
+  });
+
+  var dataSet = Array();
+  dataForHigh.forEach(function (pr) {
+    var d = {
+      label: pr[0],
+      data: [
+        {
+          x: pr[0],
+          y: pr[1],
+          r: pr[2] * 4
+        }
+      ],
+      backgroundColor:"#99aaff",
+      hoverBackgroundColor: "#ff6384"
+    };
+
+    dataSet.push(d);
   });
 
   // data.sort(function(a, b){return b.id - a.id});
-
-  Highcharts.chart('highchart-area-weekly', {
-            chart: {
-                type: 'scatter',
-                zoomType: 'xy'
-            },
-            title: {
-                text: '-'
-            },
-            xAxis: {
-                type: 'category',
-                categories: ["일", "월", "화", "수", "목", "금", "토"]
-            },
-            yAxis: {
-                title: {
-                    text: '가격'
+  var dayAr = ["일", "월", "화", "수", "목", "금", "토"];
+  var ctx = document.getElementById("highchart-area-weekly").getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bubble',
+      data: {
+        labels: dayAr,
+        datasets: dataSet
+      },
+      options: {
+        aspectRatio: 1,
+  			legend: false,
+        responsive: true,
+        tooltips: {
+        callbacks: {
+                  label: function(tooltipItem, data) {
+                      return tooltipItem.yLabel + "원";
+                  }
+              }
+          },
+        scales: {
+            xAxes: [{
+              ticks: {
+                callback: function(value, index, values) {
+                  return dayAr[index];
                 }
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'left',
-                verticalAlign: 'top',
-                x: 1,
-                y: 120,
-                floating: true,
-                backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
-                borderWidth: 1
-            },
-            plotOptions: {
-                scatter: {
-                    marker: {
-                        radius: 5,
-                        states: {
-                            hover: {
-                                enabled: true,
-                                lineColor: 'rgb(100,100,100)'
-                            }
-                        }
-                    },
-                    states: {
-                        hover: {
-                            marker: {
-                                enabled: false
-                            }
-                        }
-                    },
-                    tooltip: {
-                        headerFormat: '<b>{series.name}</b><br>',
-                        pointFormat: '{point.y}원'
-                    }
-                }
-            },
-            series: [{
-                name: '오전',
-                color: 'rgba(223, 83, 83, .5)',
-                data: noonDataForHigh
-
-            }, {
-                name: '오후',
-                color: 'rgba(119, 152, 191, .5)',
-                data: afternoonForHigh
-    }]
-});
+              }
+            }]
+          }
+      }
+  });
 }
 
 var orangeData;
