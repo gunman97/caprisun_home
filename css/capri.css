@@ -10,16 +10,6 @@
 	color: #555555;
 }
 
-.background-image {
-  background: url('https://caprisun.airpage.org/imgs/capri_back.jpg') no-repeat bottom center scroll;
-  width: 100%;
-  height: auto;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
-  -o-background-size: cover;
-}
-
 @supports(display: grid) {
 
   .grid-container {

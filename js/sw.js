@@ -13,7 +13,6 @@ var appShellFiles = [
   '/imgs/favicon-16x16.png',
   '/imgs/favicon-32x32.png',
   '/imgs/favicon.ico',
-  '/imgs/capri_back.jpg',
   '/index.html'
 ];
 
