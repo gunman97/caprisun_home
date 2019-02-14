@@ -18,14 +18,22 @@ function getData() {
 
 function setHighChart(dataSet){
 
-  // data.sort(function(a, b){return b.id - a.id});
+  setChartKind(dataSet, "orange");
+  setChartKind(dataSet, "orange_mango");
+  setChartKind(dataSet, "apple");
+  setChartKind(dataSet, "safari");
+  setChartKind(dataSet, "fairy");
+  setChartKind(dataSet, "alaska");
+}
+
+function setChartKind(dataSet, kind) {
   var dayAr = ["일", "월", "화", "수", "목", "금", "토"];
-  var ctx = document.getElementById("highchart-area-weekly").getContext('2d');
+  var ctx = document.getElementById("highchart-weekly-" + kind).getContext('2d');
   var myChart = new Chart(ctx, {
     type: 'bubble',
       data: {
         labels: dayAr,
-        datasets: dataSet
+        datasets: dataSet[kind]
       },
       options: {
         aspectRatio: 1,
