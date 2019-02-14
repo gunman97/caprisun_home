@@ -18,15 +18,15 @@ function getData() {
 
 function setHighChart(dataSet){
 
-  setChartKind(dataSet, "orange");
-  setChartKind(dataSet, "orange_mango");
-  setChartKind(dataSet, "apple");
-  setChartKind(dataSet, "safari");
-  setChartKind(dataSet, "fairy");
-  setChartKind(dataSet, "alaska");
+  setHighChartKind(dataSet, "orange");
+  setHighChartKind(dataSet, "orange_mango");
+  setHighChartKind(dataSet, "apple");
+  setHighChartKind(dataSet, "safari");
+  setHighChartKind(dataSet, "fairy");
+  setHighChartKind(dataSet, "alaska");
 }
 
-function setChartKind(dataSet, kind) {
+function setHighChartKind(dataSet, kind) {
   var dayAr = ["일", "월", "화", "수", "목", "금", "토"];
   var ctx = document.getElementById("highchart-weekly-" + kind).getContext('2d');
   var myChart = new Chart(ctx, {
@@ -65,7 +65,62 @@ function setChartKind(dataSet, kind) {
   });
 }
 
+function setChartKind(kind, data) {
+  var dta = data[kind];
+  var chartDataSet = Array();
+  var chartDayData = Array();
+  var chartNightData = Array();
+
+  dta.forEach(function (pr) {
+      chartDayData.push(pr.d);
+      chartNightData.push(pr.n);
+  });
+
+  chartDayData.reverse();
+  chartNightData.reverse();
+  chartDataSet[0] =
+        {
+          data: chartDayData,
+          label: "오전",
+          borderColor: "#3e95cd",
+          fill: true,
+          steppedLine:true
+        };
+
+  chartDataSet[1] =
+        {
+          data: chartNightData,
+          label: "오후",
+          borderColor: "#3e95cd",
+          fill: true,
+          steppedLine:true
+        };
+
+  var ctx = document.getElementById("morris-area-chart-" + kind).getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'line',
+      data: {
+        labels: data.labels,
+        datasets: chartDataSet
+      },
+      options: {
+        aspectRatio: 1,
+  			legend: false,
+        responsive: true,
+        tooltips: {
+        callbacks: {
+                  label: function(tooltipItem, data) {
+                      var d = data.datasets[tooltipItem.datasetIndex].label;
+                      return d + " 가격 " + tooltipItem.yLabel + "원";
+                  }
+              }
+          }
+        }
+  });
+}
+
 function setCharts(data) {
+
   $("#gather_date").text(data.gather_date);
 
   var hoverFunction = function (index, options, content, row) {
@@ -76,73 +131,34 @@ function setCharts(data) {
     $("#" + pr.tagid + "_price").text(pr.price);
     $("#" + pr.tagid + "_price_ext").text(pr.text1);
     $("#" + pr.tagid + "_price_ext2").text(pr.text2);
+
+    setChartKind(pr.tagid, data);
   });
 
-  Morris.Area({
-    element: 'morris-area-chart-orange',
-    behaveLikeLine: true,
-    hoverCallback: hoverFunction,
-    data: data.orange,
-    smooth: false,
-    xkey: 'x',
-    ykeys: ['y', 'z'],
-    labels: ['오전', '오후']
-  });
 
-  Morris.Area({
-    element: 'morris-area-chart-orange_mango',
-    behaveLikeLine: true,
-    smooth: false,
-    hoverCallback: hoverFunction,
-    data: data.orange_mango,
-    xkey: 'x',
-    ykeys: ['y', 'z'],
-    labels: ['오전', '오후']
-  });
 
-  Morris.Area({
-    element: 'morris-area-chart-apple',
-    behaveLikeLine: true,
-    smooth: false,
-    hoverCallback: hoverFunction,
-    data: data.apple,
-    xkey: 'x',
-    ykeys: ['y', 'z'],
-    labels: ['오전', '오후']
-  });
+  //
+  // Morris.Area({
+  //   element: 'morris-area-chart-orange',
+  //   behaveLikeLine: true,
+  //   hoverCallback: hoverFunction,
+  //   data: data['orange'],
+  //   smooth: false,
+  //   xkey: 'x',
+  //   ykeys: ['y', 'z'],
+  //   labels: ['오전', '오후']
+  // });
 
-  Morris.Area({
-    element: 'morris-area-chart-alaska',
-    behaveLikeLine: true,
-    smooth: false,
-    hoverCallback: hoverFunction,
-    data: data.alaska,
-    xkey: 'x',
-    ykeys: ['y', 'z'],
-    labels: ['오전', '오후']
-  });
-
-  Morris.Area({
-    element: 'morris-area-chart-safari',
-    behaveLikeLine: true,
-    smooth: false,
-    hoverCallback: hoverFunction,
-    data: data.safari,
-    xkey: 'x',
-    ykeys: ['y', 'z'],
-    labels: ['오전', '오후']
-  });
-
-  Morris.Area({
-    element: 'morris-area-chart-fairy',
-    behaveLikeLine: true,
-    smooth: false,
-    hoverCallback: hoverFunction,
-    data: data.fairy,
-    xkey: 'x',
-    ykeys: ['y', 'z'],
-    labels: ['오전', '오후']
-  });
+  // Morris.Area({
+  //   element: 'morris-area-chart-orange_mango',
+  //   behaveLikeLine: true,
+  //   smooth: false,
+  //   hoverCallback: hoverFunction,
+  //   data: data.orange_mango,
+  //   xkey: 'x',
+  //   ykeys: ['y', 'z'],
+  //   labels: ['오전', '오후']
+  // });
 }
 
 function ajaxRequest(callback, errorcallback) {
