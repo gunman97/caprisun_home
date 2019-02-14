@@ -43,7 +43,7 @@ function setHighChartKind(dataSet, kind) {
         callbacks: {
                   label: function(tooltipItem, data) {
                       var d = data.datasets[tooltipItem.datasetIndex].data[0];
-                      var t = d.r / 4;
+                      var t = d.c;
 
                       if (data.datasets[tooltipItem.datasetIndex].type == 'line')
                         return dayAr[tooltipItem.xLabel] + "요일의 평균가격: " + tooltipItem.yLabel + "원";
@@ -120,13 +120,7 @@ function setChartKind(kind, data) {
 }
 
 function setCharts(data) {
-
   $("#gather_date").text(data.gather_date);
-
-  var hoverFunction = function (index, options, content, row) {
-        return "날짜:" + row.x + "<br>" + "오전:" + row.y + "원 / 오후:" + row.z + "원";
-  };
-
   data.price_tags.forEach(function (pr) {
     $("#" + pr.tagid + "_price").text(pr.price);
     $("#" + pr.tagid + "_price_ext").text(pr.text1);
@@ -134,31 +128,6 @@ function setCharts(data) {
 
     setChartKind(pr.tagid, data);
   });
-
-
-
-  //
-  // Morris.Area({
-  //   element: 'morris-area-chart-orange',
-  //   behaveLikeLine: true,
-  //   hoverCallback: hoverFunction,
-  //   data: data['orange'],
-  //   smooth: false,
-  //   xkey: 'x',
-  //   ykeys: ['y', 'z'],
-  //   labels: ['오전', '오후']
-  // });
-
-  // Morris.Area({
-  //   element: 'morris-area-chart-orange_mango',
-  //   behaveLikeLine: true,
-  //   smooth: false,
-  //   hoverCallback: hoverFunction,
-  //   data: data.orange_mango,
-  //   xkey: 'x',
-  //   ykeys: ['y', 'z'],
-  //   labels: ['오전', '오후']
-  // });
 }
 
 function ajaxRequest(callback, errorcallback) {
