@@ -12,13 +12,8 @@
 
 .background-image {
   background: url('https://caprisun.airpage.org/imgs/capri_back.jpg') no-repeat bottom center scroll;
-  display: table;
   width: 100%;
   height: auto;
-  padding: 100px 0;
-  text-align: center;
-  color: white;
-  background-color: black;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
