@@ -95,12 +95,12 @@ function setChartKind(kind, data) {
           fill: true,
           steppedLine:true
         };
-
+  var labelData = data.labels.reverse();
   var ctx = document.getElementById("morris-area-chart-" + kind).getContext('2d');
   var myChart = new Chart(ctx, {
     type: 'line',
       data: {
-        labels: data.labels,
+        labels: labelData,
         datasets: chartDataSet
       },
       options: {
