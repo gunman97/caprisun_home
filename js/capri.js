@@ -82,7 +82,7 @@ function setChartKind(kind, data) {
         {
           data: chartDayData,
           label: "오전",
-          borderColor: "#3e95cd",
+          borderColor: "#6666cd",
           fill: true,
           steppedLine:true
         };
