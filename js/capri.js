@@ -65,7 +65,7 @@ function setHighChartKind(dataSet, kind) {
   });
 }
 
-function setChartKind(kind, data) {
+function setChartKind(kind, data, labelData) {
   var dta = data[kind];
   var chartDataSet = Array();
   var chartDayData = Array();
@@ -95,7 +95,7 @@ function setChartKind(kind, data) {
           fill: true,
           steppedLine:true
         };
-  var labelData = data.labels.reverse();
+
   var ctx = document.getElementById("morris-area-chart-" + kind).getContext('2d');
   var myChart = new Chart(ctx, {
     type: 'line',
@@ -121,12 +121,14 @@ function setChartKind(kind, data) {
 
 function setCharts(data) {
   $("#gather_date").text(data.gather_date);
+  var labelData = data.labels.reverse();
+
   data.price_tags.forEach(function (pr) {
     $("#" + pr.tagid + "_price").text(pr.price);
     $("#" + pr.tagid + "_price_ext").text(pr.text1);
     $("#" + pr.tagid + "_price_ext2").text(pr.text2);
 
-    setChartKind(pr.tagid, data);
+    setChartKind(pr.tagid, data, labelData);
   });
 }
 
