@@ -1,3 +1,12 @@
+const pr_goods = [
+  "orange",
+  "orange_mango",
+  "apple",
+  "safari",
+  "fairy",
+  "alaska"
+];
+
 function getData() {
   ajaxRequest(function (r) {
     if(r.result == "success") {
@@ -5,25 +14,16 @@ function getData() {
       setHighChart(r.chart2);
     }
   }, function() {
-    $('#orange_price').text("네트워크 연결이 필요합니다.");
-    $('#orangemango_price').text("네트워크 연결이 필요합니다.");
-    $('#apple_price').text("네트워크 연결이 필요합니다.");
-    $('#safari_price').text("네트워크 연결이 필요합니다.");
-    $('#alaska_price').text("네트워크 연결이 필요합니다.");
-    $('#fairy_price').text("네트워크 연결이 필요합니다.");
-    $('#capri_price').text("네트워크 연결이 필요합니다.");
-    $('#weekly_price').text("네트워크 연결이 필요합니다.");
+    pr_goods.forEach(function (goodpr) {
+      $('#' + goodpr + '_price').text("네트워크 연결이 필요합니다.");
+    });
   });
 }
 
 function setHighChart(dataSet){
-
-  setHighChartKind(dataSet, "orange");
-  setHighChartKind(dataSet, "orange_mango");
-  setHighChartKind(dataSet, "apple");
-  setHighChartKind(dataSet, "safari");
-  setHighChartKind(dataSet, "fairy");
-  setHighChartKind(dataSet, "alaska");
+  pr_goods.forEach(function (goodpr) {
+    setHighChartKind(dataSet, goodpr);
+  });
 }
 
 function setHighChartKind(dataSet, kind) {
@@ -119,16 +119,25 @@ function setChartKind(kind, data, labelData) {
   });
 }
 
+function checkIn(item) {
+  for (var i = 0; i < pr_goods.length; ++i) {
+    if(pr_goods[i] == item) return true;
+  }
+
+  return false;
+}
+
 function setCharts(data) {
   $("#gather_date").text(data.gather_date);
   var labelData = data.labels.reverse();
 
   data.price_tags.forEach(function (pr) {
-    $("#" + pr.tagid + "_price").text(pr.price);
-    $("#" + pr.tagid + "_price_ext").text(pr.text1);
-    $("#" + pr.tagid + "_price_ext2").text(pr.text2);
+      if (checkIn(pr.tagid) == false) return;
+      $("#" + pr.tagid + "_price").text(pr.price);
+      $("#" + pr.tagid + "_price_ext").text(pr.text1);
+      $("#" + pr.tagid + "_price_ext2").text(pr.text2);
 
-    setChartKind(pr.tagid, data, labelData);
+      setChartKind(pr.tagid, data, labelData);
   });
 }
 
