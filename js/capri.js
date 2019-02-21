@@ -1,4 +1,4 @@
-const pr_goods = [
+var pr_goods = [
   "orange",
   "orange_mango",
   "apple",
