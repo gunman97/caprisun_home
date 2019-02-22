@@ -146,17 +146,14 @@ function setCharts(data) {
 
   data.price_tags.forEach(function (pr) {
       if (checkIn(pr.tagid) == false) return;
-      //$("#" + pr.tagid + "_price").text(pr.price);
+      
       $("#" + pr.tagid + "_price_ext").text(pr.text1);
       $("#" + pr.tagid + "_price_ext2").text(pr.text2);
 
-      setCountPrice("#" + pr.tagid + "_price", pr.price);
-      // $("#" + pr.tagid + "_price").animateNumber(
-      //   {
-      //     number: pr.price,
-      //     numberStep: comma_separator_number_step
-      //   }
-      // );
+      if (pr.tagid == "orange")
+        setCountPrice("#" + pr.tagid + "_price", pr.price);
+      else
+        $("#" + pr.tagid + "_price").text(pr.price);
 
       setChartKind(pr.tagid, data, labelData);
   });
