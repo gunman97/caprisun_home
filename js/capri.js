@@ -127,19 +127,41 @@ function checkIn(item) {
   return false;
 }
 
+var comma_separator_number_step = 3;
+
+function setCountPrice(target_id, price) {
+  $(target_id)
+  .prop('number', 10)
+  .animateNumber(
+    {
+      number: price
+    },
+    2000
+  );
+}
+
 function setCharts(data) {
   $("#gather_date").text(data.gather_date);
   var labelData = data.labels.reverse();
 
   data.price_tags.forEach(function (pr) {
       if (checkIn(pr.tagid) == false) return;
-      $("#" + pr.tagid + "_price").text(pr.price);
+      //$("#" + pr.tagid + "_price").text(pr.price);
       $("#" + pr.tagid + "_price_ext").text(pr.text1);
       $("#" + pr.tagid + "_price_ext2").text(pr.text2);
+
+      setCountPrice("#" + pr.tagid + "_price", pr.price);
+      // $("#" + pr.tagid + "_price").animateNumber(
+      //   {
+      //     number: pr.price,
+      //     numberStep: comma_separator_number_step
+      //   }
+      // );
 
       setChartKind(pr.tagid, data, labelData);
   });
 }
+
 
 function ajaxRequest(callback, errorcallback) {
     $.ajax({url : "https://ptbu18cv95.execute-api.ap-northeast-2.amazonaws.com/prod/caprisun/get",

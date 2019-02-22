@@ -3,6 +3,7 @@ var appShellFiles = [
   '/js/capri.js',
   '/js/jquery.min.js',
   '/js/Chart.min.js',
+  'js/jquery.animateNumber.min.js',
   '/css/bootstrap.min.css',
   '/css/capri.css',
   '/css/font-awesome.min.css',
