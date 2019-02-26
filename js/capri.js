@@ -146,7 +146,7 @@ function setCharts(data) {
 
   data.price_tags.forEach(function (pr) {
       if (checkIn(pr.tagid) == false) return;
-      
+
       $("#" + pr.tagid + "_price_ext").text(pr.text1);
       $("#" + pr.tagid + "_price_ext2").text(pr.text2);
 
@@ -177,5 +177,33 @@ function ajaxRequest(callback, errorcallback) {
            }
     });
 }
+
+var slider = document.querySelector('.items');
+let isDown = false;
+let startX;
+let scrollLeft;
+
+slider.addEventListener('mousedown', (e) => {
+  isDown = true;
+  slider.classList.add('active');
+  startX = e.pageX - slider.offsetLeft;
+  scrollLeft = slider.scrollLeft;
+});
+slider.addEventListener('mouseleave', () => {
+  isDown = false;
+  slider.classList.remove('active');
+});
+slider.addEventListener('mouseup', () => {
+  isDown = false;
+  slider.classList.remove('active');
+});
+slider.addEventListener('mousemove', (e) => {
+  if(!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - slider.offsetLeft;
+  const walk = (x - startX) * 3; //scroll-fast
+  slider.scrollLeft = scrollLeft - walk;
+  console.log(walk);
+});
 
 getData();
