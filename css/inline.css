@@ -100,7 +100,7 @@ body {
     color: #000;
     margin-right: 16px;
     overflow: hidden;
-    opacity: 0.54;
+    opacity: 0.84;
     -webkit-transition: opacity 0.333s cubic-bezier(0, 0, 0.21, 1);
     transition: opacity 0.333s cubic-bezier(0, 0, 0.21, 1);
     border: none;
