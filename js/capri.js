@@ -175,7 +175,7 @@ function addChart(pr) {
 
   var item = '<div class="item item' + index + ' panel panel-default"><div class="panel-heading">'
       item += '<h3><font color=#333>' + pr_goods_name_address[pr.tagid][0] + '</font></h3>'
-      item += '<a href="' + pr_goods_name_address[pr.tagid][1] + '" target=_new><h2>현재가'
+      item += '<a href="' + pr_goods_name_address[pr.tagid][1] + '" target=_new><h2>'
       item += '<span id="' + pr.tagid + '_price">0</span>원</h2></a>'
       item += '<h5 class="recom">' + pr.text1 + '</h5>'
       item += '<h5 class="recom">' + pr.text2 +'</h5></div>'
