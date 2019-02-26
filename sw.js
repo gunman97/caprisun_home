@@ -1,12 +1,12 @@
 var cacheName = 'caprisun_airpage_org';
 var appShellFiles = [
-  '/js/capri.js',
+  '/js/caprisun.js',
   '/js/jquery.min.js',
   '/js/Chart.min.js',
   '/js/jquery.animateNumber.min.js',
   '/css/bootstrap.min.css',
-  '/css/capri.css',
-  '/css/inline.css',
+  '/css/caprisun.css',
+  '/css/inlinesun.css',
   '/css/font-awesome.min.css',
   '/imgs/android-chrome-192x192.png',
   '/imgs/android-chrome-512x512.png',
