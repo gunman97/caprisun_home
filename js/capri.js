@@ -185,6 +185,7 @@ function addChart(pr) {
       item += '<canvas id="highchart-weekly-' + pr.tagid + '"></canvas>'
       item += '<div class="alignright"><img src="./imgs/chev.png" width="30px"><br><br></div></div>';
   $('#item_body').append(item);
+  index++;
 }
 
 
@@ -197,7 +198,7 @@ function setCharts(data) {
       if (checkIn(pr.tagid) == false) return;
 
       addChart(pr);
-      
+
       if (pr.tagid == "orange")
         setCountPrice("#" + pr.tagid + "_price", pr.price);
       else
