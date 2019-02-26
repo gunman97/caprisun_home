@@ -330,6 +330,13 @@
       app.selectedPrs = [];
     }
 
+    for(var i=0;i<=(app.selectedPrs.length-1);i++){
+      if(app.selectedPrs[i].tagid == key){
+          alert("이미 추가 되어 있는 제품입니다. 이리저리 스크롤해서 확인해 보세요^^");
+          return;
+      }
+    }
+
     app.selectedPrs.push({tagid: key});
     app.saveSelectedPrs();
     app.showCard({tagid: key});
