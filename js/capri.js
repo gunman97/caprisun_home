@@ -38,8 +38,8 @@ function setHighChart(dataSet){
 function setHighChartKind(dataSet, kind) {
   var dayAr = ["일", "월", "화", "수", "목", "금", "토"];
   var ctx = document.getElementById("highchart-weekly-" + kind).getContext('2d');
-  ctx.canvas.width = 300;
-  ctx.canvas.height = 300;
+  ctx.canvas.width = 350;
+  ctx.canvas.height = 350;
   var myChart = new Chart(ctx, {
     type: 'bubble',
       data: {
@@ -49,7 +49,7 @@ function setHighChartKind(dataSet, kind) {
       options: {
         aspectRatio: 1,
   			legend: false,
-        responsive: true,
+        responsive: false,
         tooltips: {
         callbacks: {
                   label: function(tooltipItem, data) {
@@ -116,8 +116,8 @@ function setChartKind(kind, data, labelData) {
         };
 
   var ctx = document.getElementById("morris-area-chart-" + kind).getContext('2d');
-  ctx.canvas.width = 300;
-  ctx.canvas.height = 300;
+  ctx.canvas.width = 350;
+  ctx.canvas.height = 350;
   var myChart = new Chart(ctx, {
     type: 'line',
       data: {
@@ -127,7 +127,7 @@ function setChartKind(kind, data, labelData) {
       options: {
         aspectRatio: 1,
   			legend: false,
-        responsive: true,
+        responsive: false,
         tooltips: {
         callbacks: {
                   label: function(tooltipItem, data) {
@@ -137,12 +137,12 @@ function setChartKind(kind, data, labelData) {
               }
           },
         layout: {
-                padding: {
-                    left: 20,
-                    right: 30,
-                    top: 20,
-                    bottom: 20
-                }
+            padding: {
+                left: 20,
+                right: 30,
+                top: 20,
+                bottom: 20
+            }
           }
       }
   });
@@ -179,10 +179,10 @@ function addChart(pr) {
       item += '<span id="' + pr.tagid + '_price">0</span>원</h2></a>'
       item += '<h5 class="recom">' + pr.text1 + '</h5>'
       item += '<h5 class="recom">' + pr.text2 +'</h5></div>'
-      item += '<canvas id="morris-area-chart-' + pr.tagid + '"></canvas>'
+      item += '<canvas id="morris-area-chart-' + pr.tagid + '" class="aligncenter"></canvas>'
       item += '<div class="panel-heading">'
       item += '<h4>' + pr_goods_name_address[pr.tagid][0] + '의 요일별 가격</h4></div>'
-      item += '<canvas id="highchart-weekly-' + pr.tagid + '"></canvas>'
+      item += '<canvas id="highchart-weekly-' + pr.tagid + '" class="aligncenter"></canvas>'
       item += '<div class="alignright"><img src="./imgs/chev.png" width="30px"><br><br></div></div>';
   $('#item_body').append(item);
   index++;

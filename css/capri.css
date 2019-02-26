@@ -5,6 +5,10 @@
 	float: right;
   z-index: 10;
 }
+.aligncenter {
+	float:none;
+	margin:0 auto;
+}
 
 .recom {
 	color: #555555;
