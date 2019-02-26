@@ -242,6 +242,7 @@
     item += '<h4>' + pr_goods_name_address[pr.tagid][0] + '의 요일별 가격</h4>';
     item += '<canvas id="highchart-weekly-' + pr.tagid + '" class="aligncenter"></canvas>';
 
+    item += '<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>';
     item += '<ins class="adsbygoogle" ';
     item += 'style="display:block" ';
     item += 'data-ad-client="ca-pub-5184861938684175" ';
