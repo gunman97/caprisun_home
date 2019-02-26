@@ -38,8 +38,8 @@ function setHighChart(dataSet){
 function setHighChartKind(dataSet, kind) {
   var dayAr = ["일", "월", "화", "수", "목", "금", "토"];
   var ctx = document.getElementById("highchart-weekly-" + kind).getContext('2d');
-  ctx.canvas.width = 350;
-  ctx.canvas.height = 350;
+  ctx.canvas.width = 300;
+  ctx.canvas.height = 300;
   var myChart = new Chart(ctx, {
     type: 'bubble',
       data: {
@@ -116,8 +116,8 @@ function setChartKind(kind, data, labelData) {
         };
 
   var ctx = document.getElementById("morris-area-chart-" + kind).getContext('2d');
-  ctx.canvas.width = 350;
-  ctx.canvas.height = 350;
+  ctx.canvas.width = 300;
+  ctx.canvas.height = 300;
   var myChart = new Chart(ctx, {
     type: 'line',
       data: {
