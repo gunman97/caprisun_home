@@ -75,7 +75,7 @@ function setHighChartKind(dataSet, kind) {
         layout: {
           padding: {
               left: 20,
-              right: 40,
+              right: 30,
               top: 20,
               bottom: 20
           }
@@ -139,7 +139,7 @@ function setChartKind(kind, data, labelData) {
         layout: {
                 padding: {
                     left: 20,
-                    right: 40,
+                    right: 30,
                     top: 20,
                     bottom: 20
                 }
