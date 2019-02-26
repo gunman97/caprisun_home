@@ -7,6 +7,15 @@ var pr_goods = [
   "alaska"
 ];
 
+var pr_goods_name_address = {
+  "orange" : ["오렌지맛", "http://www.ssg.com/item/itemView.ssg?itemId=0000006610778"],
+  "orange_mango": ["오렌지망고맛", "http://www.ssg.com/item/itemView.ssg?itemId=0000006610896"],
+  "apple": ["사과맛", "http://www.ssg.com/item/itemView.ssg?itemId=0000007703166"],
+  "safari": ["사파리", "http://www.ssg.com/item/itemView.ssg?itemId=0000007695749"],
+  "fairy": ["페어리", "http://www.ssg.com/item/itemView.ssg?itemId=1000017758169"],
+  "alaska": ["알라스카", "http://www.ssg.com/item/itemView.ssg?itemId=0000008117934"]
+};
+
 function getData() {
   ajaxRequest(function (r) {
     if(r.result == "success") {
@@ -29,6 +38,8 @@ function setHighChart(dataSet){
 function setHighChartKind(dataSet, kind) {
   var dayAr = ["일", "월", "화", "수", "목", "금", "토"];
   var ctx = document.getElementById("highchart-weekly-" + kind).getContext('2d');
+  ctx.canvas.width = 300;
+  ctx.canvas.height = 300;
   var myChart = new Chart(ctx, {
     type: 'bubble',
       data: {
@@ -60,7 +71,15 @@ function setHighChartKind(dataSet, kind) {
                 }
               }
             }]
+          },
+        layout: {
+          padding: {
+              left: 20,
+              right: 40,
+              top: 20,
+              bottom: 20
           }
+        }
       }
   });
 }
@@ -97,6 +116,8 @@ function setChartKind(kind, data, labelData) {
         };
 
   var ctx = document.getElementById("morris-area-chart-" + kind).getContext('2d');
+  ctx.canvas.width = 300;
+  ctx.canvas.height = 300;
   var myChart = new Chart(ctx, {
     type: 'line',
       data: {
@@ -114,8 +135,16 @@ function setChartKind(kind, data, labelData) {
                       return d + " 가격 " + tooltipItem.yLabel + "원";
                   }
               }
+          },
+        layout: {
+                padding: {
+                    left: 20,
+                    right: 40,
+                    top: 20,
+                    bottom: 20
+                }
           }
-        }
+      }
   });
 }
 
@@ -140,6 +169,26 @@ function setCountPrice(target_id, price) {
   );
 }
 
+
+var index=1;
+function addChart(pr) {
+
+  var item = '<div class="item item' + index + ' panel panel-default"><div class="panel-heading">'
+      item += '<h3><font color=#333>' + pr_goods_name_address[pr.tagid][0] + '</font></h3>'
+      item += '<a href="' + pr_goods_name_address[pr.tagid][1] + '" target=_new><h2>현재가'
+      item += '<span id="' + pr.tagid + '_price">0</span>원</h2></a>'
+      item += '<h5 class="recom">' + pr.text1 + '</h5>'
+      item += '<h5 class="recom">' + pr.text2 +'</h5></div>'
+      item += '<canvas id="morris-area-chart-' + pr.tagid + '"></canvas>'
+      item += '<div class="panel-heading">'
+      item += '<h4>' + pr_goods_name_address[pr.tagid][0] + '의 요일별 가격</h4></div>'
+      item += '<canvas id="highchart-weekly-' + pr.tagid + '"></canvas>'
+      item += '<div class="alignright"><img src="./imgs/chev.png" width="30px"><br><br></div></div>';
+  $('#item_body').append(item);
+}
+
+
+
 function setCharts(data) {
   $("#gather_date").text(data.gather_date);
   var labelData = data.labels.reverse();
@@ -147,9 +196,8 @@ function setCharts(data) {
   data.price_tags.forEach(function (pr) {
       if (checkIn(pr.tagid) == false) return;
 
-      $("#" + pr.tagid + "_price_ext").text(pr.text1);
-      $("#" + pr.tagid + "_price_ext2").text(pr.text2);
-
+      addChart(pr);
+      
       if (pr.tagid == "orange")
         setCountPrice("#" + pr.tagid + "_price", pr.price);
       else
