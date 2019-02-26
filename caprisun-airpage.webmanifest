@@ -1,7 +1,7 @@
 {
-    "name": "Caprisun AiRPAGE Progressive Web App",
+    "name": "카프리썬 싸게사기",
     "short_name": "caprisun_airpage_org",
-    "description": "Progressive Web App that lists caprisun prices.",
+    "description": "카프리썬을 싸게 구입하기 위한 가격 데이터 차트 사이트",
     "icons": [
         {
             "src": "/imgs/favicon-32x32.png",
