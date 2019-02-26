@@ -96,13 +96,10 @@ body {
 
   .header .headerButton {
     width: 50px;
-    height: 24px;
+    height: 25px;
     color: #000;
     font-size: 17px;
     margin-right: 16px;
-    overflow: hidden;
-    -webkit-transition: opacity 0.333s cubic-bezier(0, 0, 0.21, 1);
-    transition: opacity 0.333s cubic-bezier(0, 0, 0.21, 1);
     border: none;
     outline: none;
     cursor: pointer; }

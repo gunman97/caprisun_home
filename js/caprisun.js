@@ -282,12 +282,7 @@
         if (checkIn(pr.tagid) == false) return;
 
         addChart(pr);
-
-        if (pr.tagid == "orange")
-          setCountPrice("#" + pr.tagid + "_price", pr.price);
-        else
-          $("#" + pr.tagid + "_price").text(pr.price);
-
+        setCountPrice("#" + pr.tagid + "_price", pr.price);
         setChartKind(pr.tagid, data, labelData);
     });
   }
