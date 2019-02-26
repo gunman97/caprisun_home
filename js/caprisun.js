@@ -270,6 +270,7 @@
       }
 
       app.saveSelectedPrs();
+      alert("삭제 되었습니다. 확인해 보세요^^");
 
     });
   }
