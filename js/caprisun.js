@@ -244,16 +244,6 @@
     item += '<h4>' + pr_goods_name_address[pr.tagid][0] + '의 요일별 가격</h4>';
     item += '<canvas id="highchart-weekly-' + pr.tagid + '" class="aligncenter"></canvas>';
 
-    item += '<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>';
-    item += '<ins class="adsbygoogle" ';
-    item += 'style="display:block" ';
-    item += 'data-ad-client="ca-pub-5184861938684175" ';
-    item += 'data-ad-slot="9839644428" data-ad-format="auto" data-full-width-responsive="true"></ins>';
-    item += '</div>';
-    item += '<script>';
-    item += '(adsbygoogle = window.adsbygoogle || []).push({});';
-    item += '</script>';
-
     $('#item_body').append(item);
     $('#selectPr').append('<option value="'+pr.tagid+'">' + pr_goods_name_address[pr.tagid][0] + '</option>');
 
