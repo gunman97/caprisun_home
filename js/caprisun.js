@@ -76,6 +76,7 @@
       if(r.result == "success") {
         saveLatestData(r);
         setMonthChart(r.chart3);
+        setMonthHBChart(r.chart3);
         setCharts(r.chart1);
         setHighChart(r.chart2);
         setCards();
@@ -94,10 +95,72 @@
     });
   }
 
+  var monthChartHBData = [];
+  var monthChartHBLabel = [];
+
+  function addItemToMonthHBChart(d) {
+    var day = new Date(d[0].dtime);
+    var dtime = (d[0].dtime + "").substring(8,10);
+    var dd = day.getDay();
+    var we = weekdays[dd];
+    var label = we + "/" + dtime;
+    // if (curPrice != d[0].orange) {
+    //   label = we + "/" + dtime;
+    //   curPrice = d[0].orange;
+    // }
+
+    monthChartHBLabel.push(label);
+    monthChartHBData.push(d[0].hb_210_12);
+  }
+
+  function setMonthHBChart(dataSet) {
+    dataSet.forEach(function (item) {
+      addItemToMonthHBChart(item.data);
+    });
+
+    monthChartHBLabel.reverse();
+    monthChartHBData.reverse();
+
+    console.log(dataSet.length);
+
+    var ctx = document.getElementById("morris-month-hb-chart").getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'line',
+        data: {
+          labels: monthChartHBLabel,
+          datasets: [{
+            data: monthChartHBData,
+            borderColor: "#6666cd",
+            fill: false,
+          }]
+        },
+        options: {
+          aspectRatio: 1,
+    			legend: false,
+          responsive: true,
+          tooltips: {
+          callbacks: {
+                    label: function(tooltipItem, data) {
+                        // var d = data.datasets[tooltipItem.datasetIndex].label;
+                        // return d + " 가격 " + tooltipItem.yLabel + "원";
+                    }
+                }
+            },
+          layout: {
+              padding: {
+                  left: 20,
+                  right: 30,
+                  top: 20,
+                  bottom: 20
+              }
+            }
+        }
+    });
+  }
 
   var monthChartData = [];
   var monthChartLabel = [];
-  
+
   function addItemToMonthChart(d) {
     var day = new Date(d[0].dtime);
     var dtime = (d[0].dtime + "").substring(8,10);
