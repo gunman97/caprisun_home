@@ -78,7 +78,7 @@
         setMonthChart(r.chart3);
         //setMonthHBChart(r.chart3);
         setCharts(r.chart1);
-        setHighChart(r.chart2);
+        //setHighChart(r.chart2);
         setCards();
       }
     }, function() {
@@ -90,7 +90,7 @@
       }
       else {
         setCharts(r.chart1);
-        setHighChart(r.chart2);
+        //setHighChart(r.chart2);
       }
     });
   }
@@ -371,8 +371,8 @@
     item += '<h5 class="recom">' + pr.text1 + '</h5>';
     item += '<h5 class="recom">' + pr.text2 +'</h5>';
     item += '<canvas id="morris-area-chart-' + pr.tagid + '" class="aligncenter"></canvas>';
-    item += '<h4>' + pr_goods_name_address[pr.tagid][0] + '의 요일별 가격</h4>';
-    item += '<canvas id="highchart-weekly-' + pr.tagid + '" class="aligncenter"></canvas>';
+    //item += '<h4>' + pr_goods_name_address[pr.tagid][0] + '의 요일별 가격</h4>';
+    //item += '<canvas id="highchart-weekly-' + pr.tagid + '" class="aligncenter"></canvas>';
 
     $('#item_body').append(item);
     $('#selectPr').append('<option value="'+pr.tagid+'">' + pr_goods_name_address[pr.tagid][0] + '</option>');
