@@ -76,7 +76,7 @@
       if(r.result == "success") {
         saveLatestData(r);
         setMonthChart(r.chart3);
-        setMonthHBChart(r.chart3);
+        //setMonthHBChart(r.chart3);
         setCharts(r.chart1);
         setHighChart(r.chart2);
         setCards();
